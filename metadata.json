@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Cape Global Solutions",
+  "description": "Premium modern consulting, training and research agency. Moving you forward with career strategies, professional mentoring, and research teaching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
