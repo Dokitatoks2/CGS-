@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight, Award, Compass, Search, GraduationCap, ChevronRight, Zap, Globe } from 'lucide-react';
-import heroBg from '../assets/images/hero_office_dr_ola_1785554320782.jpg';
+import heroBg from '../assets/images/hero_ola_no_earring_1786069945295.jpg';
 
 interface HeroProps {
   setCurrentTab: (tab: string) => void;

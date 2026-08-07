@@ -215,7 +215,7 @@ export default function Header({ currentTab, setCurrentTab, cart, removeFromCart
             </div>
           </nav>
 
-          {/* Right hand Actions (Cart & Contact Us CTA) */}
+          {/* Right hand Actions (Cart) */}
           <div className="hidden sm:flex items-center gap-3">
             {/* Shopping Cart Button */}
             <div className="relative">
@@ -291,21 +291,6 @@ export default function Header({ currentTab, setCurrentTab, cart, removeFromCart
                 </div>
               )}
             </div>
-
-            {/* Moved Contact Button (Primary Right Action CTA) */}
-            <button
-              onClick={() => handleNavClick('contact')}
-              className={`py-2.5 px-5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 group shadow-xs ${
-                currentTab === 'contact'
-                  ? 'bg-brand-primary text-white shadow-md'
-                  : 'text-stone-900 border border-stone-300 bg-white hover:bg-stone-50 hover:border-brand-primary'
-              }`}
-              id="header-contact-btn"
-            >
-              <Mail className="w-3.5 h-3.5 text-brand-primary group-hover:scale-110 transition-transform" />
-              <span>Contact Us</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform opacity-70" />
-            </button>
           </div>
 
           {/* Mobile Menu Action Icon */}

@@ -92,7 +92,7 @@ export default function Contact() {
                 <div className="space-y-0.5">
                   <span className="text-[10px] font-mono text-stone-500 uppercase">Admissions & Inquiries</span>
                   <p className="text-sm font-medium text-stone-900 hover:text-brand-primary transition-colors select-all">
-                    ola@capeglobal.org
+                    admin@capeglobal.org
                   </p>
                   <p className="text-[10px] text-stone-500">Response SLA: Under 24 Business Hours</p>
                 </div>

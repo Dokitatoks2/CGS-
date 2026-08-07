@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Globe2, Send, Check } from 'lucide-react';
+import { Globe2, Send, Check, Mail, ArrowRight } from 'lucide-react';
 
 interface FooterProps {
   setCurrentTab: (tab: string) => void;
@@ -86,6 +86,41 @@ export default function Footer({ setCurrentTab }: FooterProps) {
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-brand-primary/5 rounded-full blur-[110px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
+        {/* Relocated Contact Us Box */}
+        <div className="bg-white border border-stone-300/80 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 text-left" id="relocated-contact-box">
+          <div className="space-y-2 max-w-xl">
+            <span className="text-[10px] font-mono text-brand-primary uppercase tracking-widest font-semibold block">
+              Direct Advisory & Inquiries
+            </span>
+            <h3 className="font-display font-bold text-xl sm:text-2xl text-stone-900 tracking-tight">
+              Ready to collaborate or request strategic consultation?
+            </h3>
+            <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Connect directly with Dr. Ola Adetokunboh and the Cape Global Solutions team for executive coaching, capacity development, or institutional reskilling.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0">
+            <button
+              onClick={() => {
+                setCurrentTab('contact');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="w-full sm:w-auto py-3 px-6 rounded-xl bg-brand-primary hover:bg-brand-primary/95 text-white text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-xs group"
+              id="bottom-contact-btn"
+            >
+              <Mail className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+              <span>Contact Us</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform opacity-80" />
+            </button>
+            <a
+              href="mailto:admin@capeglobal.org"
+              className="w-full sm:w-auto py-3 px-5 rounded-xl border border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-800 text-xs font-medium transition-all text-center"
+            >
+              admin@capeglobal.org
+            </a>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 items-start">
           
           {/* Column 1: Brand Info */}
@@ -111,7 +146,7 @@ export default function Footer({ setCurrentTab }: FooterProps) {
             </div>
 
             <p className="text-xs text-stone-600 font-normal leading-relaxed max-w-sm">
-              Cape Global Solutions is a premium professional consulting, training, and academic research, teaching agency designed to help professionals, researchers, company executives, managers and postgraduate scholars navigate key transitions and move forward.
+              Cape Global Solutions is a premium professional consulting, research and capacity development agency designed to help professionals, researchers, company executives, managers and postgraduate scholars navigate key transitions and move forward.
             </p>
 
             <div className="flex gap-4 text-xs font-mono text-stone-500">
