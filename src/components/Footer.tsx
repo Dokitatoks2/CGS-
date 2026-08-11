@@ -17,7 +17,7 @@ const socialLinks = [
   },
   {
     name: 'X (Twitter)',
-    href: 'https://x.com',
+    href: 'https://x.com/Emvic12',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -26,7 +26,7 @@ const socialLinks = [
   },
   {
     name: 'Facebook',
-    href: 'https://facebook.com',
+    href: 'https://www.facebook.com/CapeGlobalSolutions',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.65 13.75 5.65c1.08 0 2.21.19 2.21.19v2.43h-1.25c-1.23 0-1.61.77-1.61 1.56V12h2.74l-.44 3h-2.3v6.8c4.56-.93 8-4.96 8-9.8z"/>
