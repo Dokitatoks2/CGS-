@@ -1,12 +1,12 @@
 import { motion } from 'motion/react';
-import { ArrowUpRight, Award, Compass, Search, GraduationCap, ChevronRight, Zap, Globe } from 'lucide-react';
+import { Award, GraduationCap, ChevronRight, Globe } from 'lucide-react';
 import heroBg from '../assets/images/hero_ola_no_earring_1786069945295.jpg';
 
 interface HeroProps {
   setCurrentTab: (tab: string) => void;
 }
 
-export default function Hero({ setCurrentTab }: HeroProps) {
+export default function Hero({ setCurrentTab: _setCurrentTab }: HeroProps) {
   return (
     <section className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden grid-pattern" id="hero-section">
       {/* Background Image Layer */}
@@ -76,54 +76,6 @@ export default function Hero({ setCurrentTab }: HeroProps) {
                 Cape Global Solutions is an elite multidisciplinary agency driving systemic change. We empower professionals, students, and institutions through bespoke high-end consulting, systematic academic research, teaching, and comprehensive life-alignment mentoring.
               </motion.p>
             </div>
-
-            {/* Call to Actions (CTAs) */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-wrap items-center gap-4 pt-2"
-            >
-              <button
-                onClick={() => {
-                  const el = document.getElementById('strategy-sandbox-root');
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth' });
-                  } else {
-                    setCurrentTab('capacity');
-                  }
-                }}
-                className="py-3.5 px-7 rounded-xl font-display font-medium text-sm text-white bg-brand-primary hover:bg-brand-primary/95 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2 group cursor-pointer"
-              >
-                <span>Launch Strategy Lab</span>
-                <Zap className="w-4 h-4 group-hover:scale-125 transition-transform text-white animate-pulse" />
-              </button>
-
-              <button
-                onClick={() => setCurrentTab('services')}
-                className="py-3.5 px-6 rounded-xl font-display font-medium text-sm text-stone-800 hover:text-stone-900 bg-white border border-stone-300 hover:bg-stone-50 hover:border-brand-primary/30 transition-all flex items-center gap-1 group cursor-pointer shadow-xs"
-              >
-                <span>Explore Practices</span>
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="glass-card rounded-full border border-stone-300/80 px-3.5 py-2 flex items-center gap-2 shadow-xs backdrop-blur-lg hover:border-brand-primary/40 transition-colors cursor-pointer group bg-white/80"
-                onClick={() => {
-                  const el = document.getElementById('strategy-sandbox-root');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-mono text-stone-700 group-hover:text-stone-900 font-medium transition-colors">
-                  Assisted Career Builder
-                </span>
-                <ArrowUpRight className="w-3 h-3 text-stone-500 group-hover:text-stone-900 transition-colors" />
-              </motion.div>
-            </motion.div>
 
             {/* Relocated Key Metric Cards (placed on the left so background image of people remains clear) */}
             <motion.div

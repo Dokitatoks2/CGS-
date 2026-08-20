@@ -3,15 +3,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Check, Star, Plus } from 'lucide-react';
 import { Course } from '../types';
 import { COURSES } from '../data';
-import CareerStrategySandbox from './CareerStrategySandbox';
 
 interface CapacityDevelopmentProps {
   setCurrentTab: (tab: string) => void;
   onEnrollRequested: (courseTitle: string) => void;
 }
 
-export default function CapacityDevelopment({ setCurrentTab, onEnrollRequested }: CapacityDevelopmentProps) {
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+export default function CapacityDevelopment({ setCurrentTab: _setCurrentTab, onEnrollRequested }: CapacityDevelopmentProps) {
+  const [_selectedCourse, _setSelectedCourse] = useState<Course | null>(null);
   const [enrolledCourseIds, setEnrolledCourseIds] = useState<string[]>([]);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -34,28 +33,8 @@ export default function CapacityDevelopment({ setCurrentTab, onEnrollRequested }
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-brand-primary/5 rounded-full blur-[110px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-20">
-        
-        {/* SECTION 1: BluePrint Lab Intro */}
-        <div className="space-y-6 max-w-4xl text-left">
-          <span className="text-xs font-mono text-brand-primary uppercase tracking-widest bg-brand-primary/10 px-3 py-1 rounded-full">
-            Capacity Development Sandbox
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-stone-900 tracking-tight">
-            Take command of your path. <br />
-            <span className="gradient-accent-text">Interactive strategy simulation.</span>
-          </h2>
-          <p className="text-sm sm:text-base text-stone-600 font-normal leading-relaxed">
-            Uniquely engineered at Cape Global, this interactive simulator generates immediate tactical structures based on labor market analysis. Input your barriers and goals to reveal a calibrated phase-by-phase acceleration pathway.
-          </p>
-        </div>
-
-        {/* SECTION 2: Active Career Strategy Sandbox */}
-        <div className="w-full">
-          <CareerStrategySandbox />
-        </div>
-
-        {/* SECTION 3: Premium Cohort Courses */}
-        <div className="space-y-12 pt-12 border-t border-stone-200/80" id="contact-mentorship-section">
+        {/* Premium Cohort Courses */}
+        <div className="space-y-12" id="contact-mentorship-section">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 text-left">
             <div className="space-y-3 max-w-2xl">
               <span className="text-xs font-mono text-brand-purple uppercase tracking-widest bg-brand-purple/10 px-3 py-1 rounded-full">
