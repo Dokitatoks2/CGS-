@@ -17,7 +17,7 @@ const socialLinks = [
   },
   {
     name: 'X (Twitter)',
-    href: 'https://x.com/Emvic12',
+    href: 'https://x.com/CapeGlobalSol',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -68,26 +68,29 @@ export default function Footer({ setCurrentTab }: FooterProps) {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim() && email.includes('@')) {
-      setSubscribed(true);
-      setTimeout(() => {
-        setEmail('');
-        setSubscribed(false);
-      }, 3000);
-    }
+    const targetEmail = email.trim();
+    const mailtoUrl = targetEmail
+      ? `mailto:admin@capeglobal.org?subject=Mailing%20List%20Subscription&body=Please%20add%20my%20email%20(${encodeURIComponent(targetEmail)})%20to%20the%20Cape%20Global%20mailing%20list.`
+      : 'mailto:admin@capeglobal.org?subject=Mailing%20List%20Subscription';
+    
+    window.location.href = mailtoUrl;
+    setSubscribed(true);
+    setTimeout(() => {
+      setEmail('');
+      setSubscribed(false);
+    }, 3000);
   };
 
-  const keyPages = [
-    { label: 'Home Page', id: 'home' },
-    { label: 'About Agency', id: 'about' },
-    { label: 'Services Portfolio', id: 'services' },
-    { label: 'Contact Us', id: 'contact' },
+  const keyPages: { label: string; id: string; href?: string; tabId?: string }[] = [
+    { label: 'Home Page', href: 'https://www.capeglobal.org/home', id: 'footer-link-home' },
+    { label: 'About Agency', id: 'footer-link-about', tabId: 'about' },
+    { label: 'Service Portfolio', id: 'footer-link-services', tabId: 'services' },
+    { label: 'Contact Us', href: 'https://www.capeglobal.org/contact-us', id: 'footer-link-contact' },
   ];
 
-  const resourceLinks = [
-    { label: 'Project Case Studies', id: 'projects' },
-    { label: 'Capacity Development', id: 'capacity' },
-    { label: 'Audiovisuals Library', id: 'audiovisuals' },
+  const resourceLinks: { label: string; id: string; href?: string; tabId?: string }[] = [
+    { label: 'Capacity Development', id: 'footer-link-capacity', tabId: 'capacity' },
+    { label: 'Audiovisuals Library', href: 'https://www.capeglobal.org/audiovisuals', id: 'footer-link-audiovisuals' },
   ];
 
   return (
@@ -202,15 +205,30 @@ export default function Footer({ setCurrentTab }: FooterProps) {
                 <ul className="space-y-1.5">
                   {keyPages.map((link) => (
                     <li key={link.id}>
-                      <button
-                        onClick={() => {
-                          setCurrentTab(link.id);
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                        className="text-stone-600 hover:text-brand-primary transition-colors text-left font-normal"
-                      >
-                        {link.label}
-                      </button>
+                      {link.tabId ? (
+                        <a
+                          id={link.id}
+                          href={`#${link.tabId}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentTab(link.tabId!);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                          className="text-stone-600 hover:text-brand-primary transition-colors text-left font-normal inline-block cursor-pointer"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <a
+                          id={link.id}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-stone-600 hover:text-brand-primary transition-colors text-left font-normal inline-block"
+                        >
+                          {link.label}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -221,15 +239,30 @@ export default function Footer({ setCurrentTab }: FooterProps) {
                 <ul className="space-y-1.5">
                   {resourceLinks.map((link) => (
                     <li key={link.id}>
-                      <button
-                        onClick={() => {
-                          setCurrentTab(link.id);
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                        className="text-stone-600 hover:text-brand-primary transition-colors text-left font-normal"
-                      >
-                        {link.label}
-                      </button>
+                      {link.tabId ? (
+                        <a
+                          id={link.id}
+                          href={`#${link.tabId}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentTab(link.tabId!);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                          className="text-stone-600 hover:text-brand-primary transition-colors text-left font-normal inline-block cursor-pointer"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <a
+                          id={link.id}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-stone-600 hover:text-brand-primary transition-colors text-left font-normal inline-block"
+                        >
+                          {link.label}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -249,7 +282,6 @@ export default function Footer({ setCurrentTab }: FooterProps) {
             <form onSubmit={handleSubscribe} className="flex gap-2">
               <input
                 type="email"
-                required
                 placeholder="Institutional email..."
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -258,14 +290,16 @@ export default function Footer({ setCurrentTab }: FooterProps) {
               <button
                 type="submit"
                 disabled={subscribed}
-                className="p-2.5 rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white transition-colors flex items-center justify-center shrink-0 shadow-xs"
+                title="Send email to admin@capeglobal.org"
+                aria-label="Send email to admin@capeglobal.org"
+                className="p-2.5 rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white transition-colors flex items-center justify-center shrink-0 shadow-xs cursor-pointer"
               >
                 {subscribed ? <Check className="w-4 h-4" /> : <Send className="w-4 h-4" />}
               </button>
             </form>
             {subscribed && (
               <span className="text-[10px] font-mono text-emerald-700 block font-semibold">
-                Subscription requested! Check your inbox for validation.
+                Opening email to admin@capeglobal.org...
               </span>
             )}
           </div>

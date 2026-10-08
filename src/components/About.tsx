@@ -95,13 +95,16 @@ export default function About({ setCurrentTab }: AboutProps) {
             </div>
 
             <div className="pt-4">
-              <button
-                onClick={() => setCurrentTab('contact')}
+              <a
+                id="about-connect-team-link"
+                href="https://www.capeglobal.org/contact-us"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="py-3 px-6 rounded-xl text-xs font-display font-medium text-stone-900 bg-white border border-stone-300 hover:bg-stone-50 hover:border-brand-primary/30 transition-all inline-flex items-center gap-1 group cursor-pointer shadow-xs"
               >
                 <span>Connect with our Principal Team</span>
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </a>
             </div>
           </div>
 

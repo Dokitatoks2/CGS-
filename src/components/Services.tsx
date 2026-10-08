@@ -1,35 +1,23 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Check, Plus, HelpCircle, GraduationCap, Compass, Shuffle, BarChart3, Activity, Users, Info, X, Microscope, FileText } from 'lucide-react';
+import { Check, HelpCircle, GraduationCap, Compass, Shuffle, BarChart3, Activity, Users, Info, X, Microscope, FileText, Mail } from 'lucide-react';
 import { Service } from '../types';
 import { SERVICES } from '../data';
 
 interface ServicesProps {
-  cart: Service[];
-  addToCart: (service: Service) => void;
-  removeFromCart: (id: string) => void;
+  cart?: Service[];
+  addToCart?: (service: Service) => void;
+  removeFromCart?: (id: string) => void;
   setCurrentTab: (tab: string) => void;
 }
 
-export default function Services({ cart, addToCart, removeFromCart, setCurrentTab }: ServicesProps) {
+export default function Services({ setCurrentTab }: ServicesProps) {
   const [activeCategory, setActiveCategory] = useState<'All' | 'Consulting' | 'Training' | 'Research'>('All');
   const [selectedServiceDetail, setSelectedServiceDetail] = useState<Service | null>(null);
 
   const filteredServices = SERVICES.filter(service => 
     activeCategory === 'All' ? true : service.category === activeCategory
   );
-
-  const isAddedToCart = (serviceId: string) => {
-    return cart.some(item => item.id === serviceId);
-  };
-
-  const handleCartToggle = (service: Service) => {
-    if (isAddedToCart(service.id)) {
-      removeFromCart(service.id);
-    } else {
-      addToCart(service);
-    }
-  };
 
   const getIcon = (name: string) => {
     switch (name) {
@@ -89,7 +77,6 @@ export default function Services({ cart, addToCart, removeFromCart, setCurrentTa
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredServices.map((service) => {
-              const added = isAddedToCart(service.id);
               return (
                 <motion.div
                   key={service.id}
@@ -160,26 +147,15 @@ export default function Services({ cart, addToCart, removeFromCart, setCurrentTa
                         <Info className="w-4 h-4" />
                       </button>
 
-                      <button
-                        onClick={() => handleCartToggle(service)}
-                        className={`col-span-9 py-2.5 px-4 rounded-lg text-xs font-display font-medium transition-all duration-300 flex items-center justify-center gap-1.5 ${
-                          added
-                            ? 'bg-brand-purple/15 border border-brand-purple/40 text-brand-purple font-semibold'
-                            : 'bg-brand-primary hover:bg-brand-primary/95 text-white'
-                        }`}
+                      <a
+                        id={`service-inquire-${service.id}`}
+                        href={`mailto:admin@capeglobal.org?subject=${encodeURIComponent(`Service Inquiry: ${service.title}`)}&body=${encodeURIComponent(`Hello Cape Global Team,\n\nI would like to inquire about your service:\n• Service: ${service.title}\n• Category: ${service.category}\n• Quoted Range: ${service.price}\n• Duration: ${service.duration}\n\nPlease share further consultation and onboarding details.\n\nKind regards.`)}`}
+                        className="col-span-9 py-2.5 px-4 rounded-lg text-xs font-display font-medium transition-all duration-300 flex items-center justify-center gap-1.5 bg-brand-primary hover:bg-brand-primary/95 text-white shadow-xs cursor-pointer group/btn"
+                        title={`Inquire about ${service.title} via admin@capeglobal.org`}
                       >
-                        {added ? (
-                          <>
-                            <Check className="w-3.5 h-3.5" />
-                            <span>Added to Request Box</span>
-                          </>
-                        ) : (
-                          <>
-                            <Plus className="w-3.5 h-3.5" />
-                            <span>Add to Request Box</span>
-                          </>
-                        )}
-                      </button>
+                        <Mail className="w-3.5 h-3.5 shrink-0 group-hover/btn:scale-110 transition-transform" />
+                        <span>Inquire via Email</span>
+                      </a>
                     </div>
                   </div>
                 </motion.div>
@@ -198,19 +174,15 @@ export default function Services({ cart, addToCart, removeFromCart, setCurrentTa
               We frequently architect custom collaborative frameworks combining organizational consulting with academic research teaching for higher educational departments, ministries, and corporations.
             </p>
           </div>
-          <button
-            onClick={() => {
-              const el = document.getElementById('contact-form-root');
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                setCurrentTab('contact');
-              }
-            }}
-            className="py-3 px-6 rounded-xl text-xs font-display font-medium text-stone-900 bg-white border border-stone-300 hover:border-brand-primary/40 transition-all shrink-0 cursor-pointer shadow-xs"
+          <a
+            id="services-custom-framework-link"
+            href={`mailto:admin@capeglobal.org?subject=${encodeURIComponent('Custom Multidisciplinary Framework Inquiry')}&body=${encodeURIComponent('Hello Cape Global Team,\n\nI would like to inquire about architecting a custom multidisciplinary engagement model for our institution.\n\nInstitutional Details:\n• Organization / Department:\n• Target Focus (Consulting / Research / Training):\n• Expected Timeline & Scope:\n\nPlease contact us to arrange an initial strategic consultation.\n\nKind regards.')}`}
+            className="py-3 px-6 rounded-xl text-xs font-display font-medium text-stone-900 bg-white border border-stone-300 hover:bg-stone-50 hover:border-brand-primary/40 transition-all shrink-0 cursor-pointer shadow-xs inline-flex items-center gap-2 group"
+            title="Email admin@capeglobal.org"
           >
-            Request custom framework assembly
-          </button>
+            <Mail className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform" />
+            <span>Request custom framework assembly</span>
+          </a>
         </div>
 
       </div>
@@ -283,15 +255,14 @@ export default function Services({ cart, addToCart, removeFromCart, setCurrentTa
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 pt-2">
-                  <button
-                    onClick={() => {
-                      handleCartToggle(selectedServiceDetail);
-                      setSelectedServiceDetail(null);
-                    }}
-                    className="py-3 rounded-xl text-xs font-medium bg-brand-primary text-white hover:bg-brand-primary/95 transition-all text-center shadow-xs"
+                  <a
+                    href={`mailto:admin@capeglobal.org?subject=${encodeURIComponent(`Service Inquiry: ${selectedServiceDetail.title}`)}&body=${encodeURIComponent(`Hello Cape Global Team,\n\nI would like to inquire about your service:\n• Service: ${selectedServiceDetail.title}\n• Category: ${selectedServiceDetail.category}\n• Price Range: ${selectedServiceDetail.price}\n• Duration: ${selectedServiceDetail.duration}\n\nPlease share further consultation and onboarding details.\n\nKind regards.`)}`}
+                    className="py-3 rounded-xl text-xs font-medium bg-brand-primary text-white hover:bg-brand-primary/95 transition-all flex items-center justify-center gap-1.5 text-center shadow-xs cursor-pointer"
+                    title={`Inquire about ${selectedServiceDetail.title} via admin@capeglobal.org`}
                   >
-                    {isAddedToCart(selectedServiceDetail.id) ? 'Remove from Box' : 'Add to Box'}
-                  </button>
+                    <Mail className="w-4 h-4 shrink-0" />
+                    <span>Inquire via Email</span>
+                  </a>
                   <button
                     onClick={() => {
                       setSelectedServiceDetail(null);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Check, Star, Plus } from 'lucide-react';
+import { ArrowRight, Check, Star, Plus, Mail } from 'lucide-react';
 import { Course } from '../types';
 import { COURSES } from '../data';
 
@@ -15,15 +15,18 @@ export default function CapacityDevelopment({ setCurrentTab: _setCurrentTab, onE
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleEnroll = (course: Course) => {
-    if (enrolledCourseIds.includes(course.id)) return;
+    if (!enrolledCourseIds.includes(course.id)) {
+      setEnrolledCourseIds([...enrolledCourseIds, course.id]);
+    }
     
     // Call parent handler
-    onEnrollRequested(course.title);
+    if (onEnrollRequested) {
+      onEnrollRequested(course.title);
+    }
     
     // Local state feedback
-    setEnrolledCourseIds([...enrolledCourseIds, course.id]);
-    setSuccessMessage(`Registration request submitted for "${course.title}". Our admissions coordinator will reach out within 24 hours.`);
-    setTimeout(() => setSuccessMessage(null), 5000);
+    setSuccessMessage(`Email inquiry opened for "${course.title}". Direct inquiries are routed to admin@capeglobal.org.`);
+    setTimeout(() => setSuccessMessage(null), 6000);
   };
 
   return (
@@ -125,32 +128,22 @@ export default function CapacityDevelopment({ setCurrentTab: _setCurrentTab, onE
                   </div>
 
                   {/* Pricing and Enroll action */}
-                  <div className="pt-6 mt-6 border-t border-stone-200/80 flex items-center justify-between gap-4">
+                  <div className="pt-6 mt-6 border-t border-stone-200/80 flex items-center justify-between gap-3">
                     <div className="space-y-0.5">
                       <span className="text-[9px] font-mono text-stone-500 uppercase block">Duration</span>
                       <span className="text-xs text-stone-900 font-mono font-medium">{course.duration} Session</span>
                     </div>
 
-                    <button
+                    <a
+                      id={`cohort-enroll-${course.id}`}
+                      href={`mailto:admin@capeglobal.org?subject=${encodeURIComponent(`Cohort Mentorship Inquiry: ${course.title}`)}&body=${encodeURIComponent(`Hello Cape Global Admissions Team,\n\nI would like to apply and inquire about the following cohort mentoring circle:\n• Program: ${course.title}\n• Focus Track: ${course.type}\n• Duration: ${course.duration}\n• Lead Advisor: ${course.instructor}\n\nPlease share the upcoming cohort start dates, syllabus prerequisites, and registration details.\n\nKind regards.`)}`}
                       onClick={() => handleEnroll(course)}
-                      className={`py-2 px-4 rounded-xl text-xs font-display font-semibold transition-all flex items-center gap-1.5 ${
-                        enrolled
-                          ? 'bg-brand-purple/15 border border-brand-purple/40 text-brand-purple font-semibold cursor-default'
-                          : 'bg-brand-primary hover:bg-brand-primary/95 text-white shadow-xs'
-                      }`}
+                      className="py-2.5 px-3.5 rounded-xl text-xs font-display font-semibold transition-all duration-200 flex items-center gap-1.5 bg-brand-primary hover:bg-brand-primary/95 text-white shadow-xs cursor-pointer group hover:shadow-sm"
+                      title={`Inquire about ${course.title} via admin@capeglobal.org`}
                     >
-                      {enrolled ? (
-                        <>
-                          <Check className="w-3.5 h-3.5" />
-                          <span>Request Lodged</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Submit Mentorship Request</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </>
-                      )}
-                    </button>
+                      <Mail className="w-3.5 h-3.5 shrink-0 group-hover:scale-110 transition-transform" />
+                      <span>Inquire via Email</span>
+                    </a>
                   </div>
                 </div>
               );
